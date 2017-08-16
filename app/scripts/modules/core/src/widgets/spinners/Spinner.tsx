@@ -1,6 +1,14 @@
-import React, { Component } from 'react';
+import * as React from 'react';
+import autoBindMethods from 'class-autobind-decorator';
 
-class Spinner extends Component {
+export interface ISpinnerProps {
+  size?: string;
+  message?: string;
+  postnote?: string;
+}
+
+@autoBindMethods
+export class Spinner extends React.Component<ISpinnerProps, {}> {
   static propTypes = {
     size: React.PropTypes.oneOf(['small', 'medium', 'large', 'page']),
     message: React.PropTypes.string,
@@ -9,61 +17,61 @@ class Spinner extends Component {
 
   renderSmall = () => {
     return (
-      <div className="load-bar small">
-        <div className="bar1" />
-        <div className="bar2" />
-        <div className="bar3" />
+      <div className="load small">
+        <div className="bar" />
+        <div className="bar" />
+        <div className="bar" />
       </div>
     )
   }
 
   renderMediumOrLarge = () => {
+    const { size, message } = this.props;
     return (
-      <div className={`load-bar ${this.props.size.toLowerCase()}`}>
-        <div className="message color-text-accent">{this.props.message}</div>
+      <div className={`load ${size.toLowerCase()}`}>
+        <div className="message color-text-accent">{message}</div>
         <div className="bars">
           <div className="bar" />
           <div className="bar" />
           <div className="bar" />
-          {this.props.size.toLowerCase() === 'large' && <div className="bar" />}
-          {this.props.size.toLowerCase() === 'large' && <div className="bar" />}
+          {size.toLowerCase() === 'large' && <div className="bar" />}
+          {size.toLowerCase() === 'large' && <div className="bar" />}
         </div>
       </div>
     )
   }
 
   renderPageLoader = () => {
+    const { size, message } = this.props;
     return (
-      <div className={`load-bar ${this.props.size.toLowerCase()}`}>
-        <div className="message color-text-accent">{this.props.message}</div>
-        <div className="bars">
-          <div className="bar" />
-          <div className="bar" />
-          <div className="bar" />
-          {this.props.size.toLowerCase() === 'large' && <div className="bar" />}
-          {this.props.size.toLowerCase() === 'large' && <div className="bar" />}
+      <div className="styleguide">
+        <div className={`load ${size.toLowerCase()}`}>
+          <div className="message color-text-accent">{message}</div>
+          <div className="bars">
+            <div className="bar" />
+            <div className="bar" />
+            <div className="bar" />
+            {size.toLowerCase() === 'large' && <div className="bar" />}
+            {size.toLowerCase() === 'large' && <div className="bar" />}
+          </div>
+          <div className="postnote"></div>
         </div>
-        <div className="postnote"></div>
       </div>
     )
   }
 
   render() {
-    switch(this.props.size.toLowerCase()) {
+    switch((this.props.size && this.props.size.toLowerCase()) || null) {
       case 'small':
-        this.renderSmall();
-        return;
+        return this.renderSmall();
       case 'medium':
-        this.renderMediumOrLarge();
-        return;
+        return this.renderMediumOrLarge();
       case 'large':
-        this.renderMediumOrLarge();
-        return;
+        return this.renderMediumOrLarge();
       case 'page':
-        this.renderPageLoader();
-        return;
+        return this.renderPageLoader();
+      default:
+        return this.renderSmall();
     }
   }
 }
-
-export default Spinner;
