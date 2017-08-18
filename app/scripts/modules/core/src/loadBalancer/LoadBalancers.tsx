@@ -8,7 +8,7 @@ import { FilterTags, IFilterTag } from 'core/filterModel/FilterTags';
 import { ILoadBalancer, ILoadBalancerGroup } from 'core/domain';
 import { LoadBalancerPod } from './LoadBalancerPod';
 import { Tooltip } from 'core/presentation/Tooltip';
-
+import { Spinner } from 'core/widgets/spinners/Spinner';
 import { NgReact, ReactInjector } from 'core/reactShims';
 
 export interface ILoadBalancersProps {
@@ -129,9 +129,14 @@ export class LoadBalancers extends React.Component<ILoadBalancersProps, ILoadBal
   }
 
   public render(): React.ReactElement<LoadBalancers> {
-    const { Spinner, HelpField } = NgReact;
+    const { HelpField } = NgReact;
     const groupings = this.state.initialized ? (
-      <div>
+      <div className="styleguide">
+        <Spinner size="nano" />
+        <Spinner size="small" />
+        <Spinner size="medium" message="Loading medium..." />
+        <Spinner size="large" message="Loading large ..." />
+        <Spinner size="page" message="Loading page ..." />
         { this.state.groups.map((group) => (
           <div key={group.heading} className="rollup">
             { group.subgroups && group.subgroups.map((subgroup) => (
@@ -150,7 +155,7 @@ export class LoadBalancers extends React.Component<ILoadBalancersProps, ILoadBal
       </div>
     ) : (
       <div>
-        <h3><Spinner radius={30} width={8} length={16}/></h3>
+        <h3><Spinner size="small" /></h3>
       </div>
     );
 
@@ -191,6 +196,7 @@ export class LoadBalancers extends React.Component<ILoadBalancersProps, ILoadBal
         <div className="content">
           {groupings}
         </div>
+        <Spinner />
       </div>
     );
   }
