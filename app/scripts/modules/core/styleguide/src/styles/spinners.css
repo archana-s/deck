@@ -5,9 +5,14 @@
 
 List of load bars for the app
 
-1. Small load
+1. Nano loader
+2. Small loader
 2. Medium with load text
-3. Large page load load
+3. Large page load
+
+<div class="load nano"><div class="bar"></div></div>
+
+    <div class="load nano"><div class="bar"></div></div>
 
 <div class="load small"><div class="bar"></div><div class="bar"></div><div class="bar"></div></div>
 
@@ -51,7 +56,6 @@ List of load bars for the app
 
 */
 
-
 @keyframes rollingColor {
     0% {
       opacity: 0.5;
@@ -82,28 +86,29 @@ List of load bars for the app
   display: flex;
 }
 
-.load div[class^='bar'] {
+.load div.bar {
   margin-left: 2px;
   margin-right: 2px;
   background-color: var(--color-accent);
   animation: rollingColor 2s infinite ease-in;
-  min-height: 13px;
-  max-height: 15px;
+  min-height: 15px;
+  display: inline-block;
 }
 
-.load.small div[class^='bar'] {
-  min-width: 20px;
-  max-width: 22px;
+.load.nano div.bar {
+  min-width: 8px;
 }
 
-.load.medium div[class^='bar'] {
-  min-width: 36px;
-  max-width: 38px;
+.load.small div.bar {
+  min-width: 22px;
 }
 
-.load.large div[class^='bar'] {
-  min-width: 58px;
-  max-width: 60px;
+.load.medium div.bar {
+  min-width: 38px;
+}
+
+.load.large div.bar {
+  min-width: 60px;
 }
 
 .load .bar:nth-child(2) {
@@ -122,13 +127,17 @@ List of load bars for the app
   animation-delay: 1.6s;
 }
 
-.load .message {
-  margin-bottom: 12px;
-}
-
-.load:not(.small) {
+.load.medium, .load.large {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+
+.load .message {
+  margin-bottom: 4px;
+}
+
+.load .postnote {
+  margin-top: 18px;
 }

@@ -1,5 +1,6 @@
 import * as React from 'react';
 import autoBindMethods from 'class-autobind-decorator';
+const Logo = require('./logo.svg');
 
 export interface ISpinnerProps {
   size?: string;
@@ -10,64 +11,90 @@ export interface ISpinnerProps {
 @autoBindMethods
 export class Spinner extends React.Component<ISpinnerProps, {}> {
   static propTypes = {
-    size: React.PropTypes.oneOf(['small', 'medium', 'large', 'page']),
+    size: React.PropTypes.oneOf(['nano', 'small', 'medium', 'large', 'page']),
     message: React.PropTypes.string,
     postnote: React.PropTypes.string
+  }
+
+  getBarRows = (count: number) => {
+    const rows = [];
+    let i: number;
+    for (i = 0; i < count; i++) {
+      rows.push(<div className="bar" />)
+    }
+    return rows;
+  }
+
+  renderNano = () => {
+    return (
+      <div className="load nano">
+        {this.getBarRows(1).map(bar => bar)}
+      </div>
+    )
   }
 
   renderSmall = () => {
     return (
       <div className="load small">
-        <div className="bar" />
-        <div className="bar" />
-        <div className="bar" />
+        {this.getBarRows(3).map(bar => bar)}
       </div>
     )
   }
 
-  renderMediumOrLarge = () => {
-    const { size, message } = this.props;
+  renderMedium = () => {
+    const { message } = this.props;
     return (
-      <div className={`load ${size.toLowerCase()}`}>
-        <div className="message color-text-accent">{message}</div>
+      <div className="load medium">
+        <div className="message color-text-accent heading-4">
+          {message || "Loading ..."}
+        </div>
         <div className="bars">
-          <div className="bar" />
-          <div className="bar" />
-          <div className="bar" />
-          {size.toLowerCase() === 'large' && <div className="bar" />}
-          {size.toLowerCase() === 'large' && <div className="bar" />}
+          {this.getBarRows(3).map(bar => bar)}
+        </div>
+      </div>
+    )
+  }
+
+  renderLarge = () => {
+    const { message } = this.props;
+    return (
+      <div className="load large">
+        <div className="message color-text-accent heading-2">
+          {message || 'Loading ...'}
+        </div>
+        <div className="bars">
+          {this.getBarRows(5).map(bar => bar)}
         </div>
       </div>
     )
   }
 
   renderPageLoader = () => {
-    const { size, message } = this.props;
+    const { message, postnote } = this.props;
     return (
       <div className="styleguide">
-        <div className={`load ${size.toLowerCase()}`}>
-          <div className="message color-text-accent">{message}</div>
+        <div className="load large vertical center">
+          <Logo />
+          <div className="message color-text-accent heading-2">{message || 'Loading ...'}</div>
           <div className="bars">
-            <div className="bar" />
-            <div className="bar" />
-            <div className="bar" />
-            {size.toLowerCase() === 'large' && <div className="bar" />}
-            {size.toLowerCase() === 'large' && <div className="bar" />}
+            {this.getBarRows(5).map(bar => bar)}
           </div>
-          <div className="postnote"></div>
+          <div className="postnote">{postnote}</div>
         </div>
       </div>
     )
   }
 
   render() {
-    switch((this.props.size && this.props.size.toLowerCase()) || null) {
+    switch ((this.props.size && this.props.size.toLowerCase()) || null) {
+      case 'nano':
+        return this.renderNano();
       case 'small':
         return this.renderSmall();
       case 'medium':
-        return this.renderMediumOrLarge();
+        return this.renderMedium();
       case 'large':
-        return this.renderMediumOrLarge();
+        return this.renderLarge();
       case 'page':
         return this.renderPageLoader();
       default:
