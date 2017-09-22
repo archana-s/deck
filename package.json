@@ -41,6 +41,7 @@
     "angular-ui-bootstrap": "^2.5.0",
     "angular-ui-sortable": "^0.17.0",
     "angular2react": "^2.0.0",
+    "babel-plugin-transform-vue-jsx": "^3.5.0",
     "bootstrap": "3.3.7",
     "class-autobind-decorator": "^2.2.1",
     "classname": "^0.0.0",
@@ -61,6 +62,7 @@
     "lodash-decorators": "^4.3.1",
     "moment-timezone": "^0.4.0",
     "n3-charts": "^2.0.18",
+    "ngVue": "^0.4.2",
     "ngimport": "^0.6.0",
     "prop-types": "^15.5.10",
     "react": "^15.6.1",
@@ -76,7 +78,10 @@
     "source-map": "^0.4.4",
     "source-sans-pro": "^2.0.10",
     "spin.js": "git://github.com/fgnass/spin.js.git#2.3.1",
-    "ui-select": "^0.19.6"
+    "ui-select": "^0.19.6",
+    "vue": "^2.4.4",
+    "vue-loader": "^13.0.5",
+    "vue-template-compiler": "^2.4.4"
   },
   "devDependencies": {
     "@types/angular": "1.6.26",

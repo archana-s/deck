@@ -50,6 +50,7 @@ import { WHATS_NEW_MODULE } from './whatsNew/whatsNew.module';
 import { WIDGETS_MODULE } from './widgets/widgets.module';
 import { STYLEGUIDE_MODULE } from './styleguide/styleguide.module';
 
+import './widgets/spinners/main';
 
 // load all templates into the $templateCache
 const templates = require.context('./', true, /\.html$/);

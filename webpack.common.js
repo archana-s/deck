@@ -46,6 +46,7 @@ function configure(IS_TEST) {
       ],
       alias: {
         'root': __dirname,
+        'vue$': 'vue/dist/vue.esm.js',
         'core': path.join(__dirname, 'app', 'scripts', 'modules', 'core', 'src'),
         '@spinnaker/core': path.join(__dirname, 'app', 'scripts', 'modules', 'core', 'src'),
         'docker': path.join(__dirname, 'app', 'scripts', 'modules', 'docker', 'src'),
@@ -86,6 +87,15 @@ function configure(IS_TEST) {
             'css-loader',
             'postcss-loader'
           ]
+        },
+        {
+          test: /\.vue$/,
+          loader: 'vue-loader',
+          options: {
+            loaders: {
+              js: 'babel-loader'
+            }
+          }
         },
         {
           test: /\.html$/,
