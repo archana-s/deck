@@ -55,7 +55,6 @@ class ListenersImpl extends React.Component<
   }
 
   private needsCert(): boolean {
-    debugger;
     return this.props.values.listeners.some(listener => this.secureProtocols.includes(listener.externalProtocol));
   }
 
